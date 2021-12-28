@@ -434,6 +434,7 @@ func TestHelmRelease(t *testing.T) {
 		With(integration.ProgramTestOptions{
 			Dir:                    filepath.Join(getCwd(t), "helm-release", "step1"),
 			SkipRefresh:            false,
+			ExpectRefreshChanges:   true,
 			Verbose:                true,
 			ExtraRuntimeValidation: validationFunc,
 			EditDirs: []integration.EditDir{
