@@ -485,6 +485,25 @@ func TestHelmReleaseNamespace(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
+func TestRancher(t *testing.T) {
+	// Validate fix for https://github.com/pulumi/pulumi-kubernetes/issues/1848
+	skipIfShort(t)
+	test := getBaseOptions(t).
+		With(integration.ProgramTestOptions{
+			Dir:         filepath.Join(getCwd(t), "rancher", "step1"),
+			SkipRefresh: false,
+			Verbose:     true,
+			EditDirs: []integration.EditDir{
+				{
+					Dir:      filepath.Join(getCwd(t), "rancher", "step2"),
+					Additive: true,
+				},
+			},
+		})
+
+	integration.ProgramTest(t, &test)
+}
+
 func skipIfShort(t *testing.T) {
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
